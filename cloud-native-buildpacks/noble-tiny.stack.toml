@@ -35,7 +35,7 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     git \
     jq \
     libgmp-dev \
-    libssl3 \
+    libssl3t64 \
     libssl-dev \
     libyaml-0-2 \
     netbase \
@@ -49,10 +49,10 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     architecture = "arm64"
 
     sources = """
-    Types: deb
-    URIs: http://ports.ubuntu.com/ubuntu-ports/
-    Suites: noble noble-updates noble-security
-    Components: main universe multiverse
+Types: deb
+URIs: http://ports.ubuntu.com/ubuntu-ports/
+Suites: noble noble-updates noble-security
+Components: main universe multiverse
     """
 
 [run]
@@ -83,7 +83,7 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     base-files \
     ca-certificates \
     libc6 \
-    libssl3 \
+    libssl3t64 \
     netbase \
     openssl \
     tzdata \
@@ -99,4 +99,5 @@ Types: deb
 URIs: http://ports.ubuntu.com/ubuntu-ports/
 Suites: noble noble-updates noble-security
 Components: main universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     """
