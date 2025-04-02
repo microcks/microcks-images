@@ -17,6 +17,7 @@ permissions: read-all
 jobs:
   build-images:
     runs-on: ubuntu-latest
+    environment: Build
     permissions:
       contents: read
     steps:
