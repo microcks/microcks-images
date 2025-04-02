@@ -1,0 +1,59 @@
+name: build-images
+on:
+  push:
+    paths-ignore:
+      #- '.github/**'
+      - '.gitignore'
+      - 'LICENSE'
+      - '*.md'
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+      - '.gitignore'
+      - 'LICENSE'
+      - '*.md'
+permissions: read-all
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+
+      - name: Setup Jam & Pack
+        run: |
+          set -x
+          curl -Lo ./jam https://github.com/paketo-buildpacks/jam/releases/download/v2.11.1/jam-darwin-amd64 \
+            && mv ./jam ${{github.workspace}}/cloud-native-buildpacks/jam \
+            && chmod u+x ${{github.workspace}}/cloud-native-buildpacks/jam
+          curl -L -O https://github.com/buildpacks/pack/releases/download/v0.37.0/pack-v0.37.0-linux.tgz \
+            && tar xvf pack-v0.37.0-linux.tgz \
+            && mv ./pack ${{github.workspace}}/cloud-native-buildpacks/pack \
+            && chmod u+x ${{github.workspace}}/cloud-native-buildpacks/pack
+
+      - name: Login to Docker Hub registry and setup multi-arch builder
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin docker.io
+          BUILDER=buildx-multi-arch
+          docker buildx inspect $BUILDER || docker buildx create --name=$BUILDER --driver=docker-container --driver-opt=network=host
+
+      - name: Build and push images
+        run: |
+          set -x
+          cd ${{github.workspace}}/cloud-native-buildpacks
+          mkdir build
+          ./jam create-stack --config noble-tiny.stack.toml --build-output build/build.oci --run-output build/run.oci
+          ./jam publish-stack --build-ref docker.io/microcks/build-noble-tiny:latest \
+            --run-ref docker.io/microcks/run-noble-tiny:latest \
+            --build-archive build/build.oci \
+            --run-archive build/run.oci
+          ./pack builder create docker.io/microcks/builder-noble-java-tiny:latest --config noble-java-tiny.builder.toml --publish
