@@ -1,0 +1,4 @@
+PRETTY_NAME="Microcks Buildpacks Tiny Noble"
+HOME_URL="https://github.com/microcks/microcks-images/"
+SUPPORT_URL="https://github.com/microcks/microcks-images/blob/main/README.md"
+BUG_REPORT_URL="https://github.com/microcks/microcks-images/issues/new"
