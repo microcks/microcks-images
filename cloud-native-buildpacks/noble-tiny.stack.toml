@@ -6,7 +6,7 @@ platforms = ["linux/amd64", "linux/arm64"]
 
 [build]
   description = "ubuntu:noble with compilers and shell utilities"
-  dockerfile = "./node.build.Dockerfile"
+  dockerfile = "./noble-tiny.build.Dockerfile"
   gid = 1000
   shell = "/bin/bash"
   uid = 1001
@@ -15,17 +15,17 @@ platforms = ["linux/amd64", "linux/arm64"]
     architecture = "amd64"
 
     sources = """
-    Types: deb
-    URIs: http://archive.ubuntu.com/ubuntu/
-    Suites: noble noble-updates
-    Components: main universe multiverse
-    Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates
+Components: main universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
-    Types: deb
-    URIs: http://security.ubuntu.com/ubuntu/
-    Suites: noble-security
-    Components: main universe multiverse
-    Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+Types: deb
+URIs: http://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     """
 
     packages = """\
@@ -58,7 +58,7 @@ platforms = ["linux/amd64", "linux/arm64"]
 
 [run]
   description = "distroless-like noble"
-  dockerfile = "./tiny/run.Dockerfile"
+  dockerfile = "./noble-tiny.run.Dockerfile"
   gid = 1000
   shell = "/sbin/nologin"
   uid = 1002
@@ -67,17 +67,17 @@ platforms = ["linux/amd64", "linux/arm64"]
     architecture = "amd64"
 
     sources = """
-    Types: deb
-    URIs: http://archive.ubuntu.com/ubuntu/
-    Suites: noble noble-updates
-    Components: main universe multiverse
-    Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu/
+Suites: noble noble-updates
+Components: main universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
-    Types: deb
-    URIs: http://security.ubuntu.com/ubuntu/
-    Suites: noble-security
-    Components: main universe multiverse
-    Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+Types: deb
+URIs: http://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     """
 
     packages = """\
@@ -97,7 +97,8 @@ platforms = ["linux/amd64", "linux/arm64"]
     architecture = "arm64"
 
     sources = """
-    deb http://ports.ubuntu.com/ubuntu-ports/ noble main universe multiverse
-    deb http://ports.ubuntu.com/ubuntu-ports/ noble-updates main universe multiverse
-    deb http://ports.ubuntu.com/ubuntu-ports/ noble-security main universe multiverse
+Types: deb
+URIs: http://ports.ubuntu.com/ubuntu-ports/
+Suites: noble noble-updates noble-security
+Components: main universe multiverse
     """
