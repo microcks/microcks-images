@@ -33,7 +33,7 @@ jobs:
       - name: Setup Jam & Pack
         run: |
           set -x
-          curl -Lo ./jam https://github.com/paketo-buildpacks/jam/releases/download/v2.11.1/jam-darwin-amd64 \
+          curl -Lo ./jam https://github.com/paketo-buildpacks/jam/releases/download/v2.11.1/jam-linux-amd64 \
             && mv ./jam ${{github.workspace}}/cloud-native-buildpacks/jam \
             && chmod u+x ${{github.workspace}}/cloud-native-buildpacks/jam
           curl -L -O https://github.com/buildpacks/pack/releases/download/v0.37.0/pack-v0.37.0-linux.tgz \
