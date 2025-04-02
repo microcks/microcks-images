@@ -43,8 +43,7 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     pkg-config \
     tzdata \
     xz-utils \
-    zlib1g-dev \
-    """
+    zlib1g-dev"""
 
   [build.platforms."linux/arm64".args]
     architecture = "arm64"
@@ -90,8 +89,7 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
     tzdata \
     zlib1g \
     libstdc++6 \
-    libgcc-s1 \
-    """
+    libgcc-s1"""
 
   [run.platforms."linux/arm64".args]
     architecture = "arm64"
